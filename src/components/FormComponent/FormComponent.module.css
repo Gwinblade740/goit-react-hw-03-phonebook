@@ -1,0 +1,15 @@
+.labelName {
+  display: block;
+}
+.labelNumber {
+  display: block;
+  margin-top: 20px;
+}
+.formButton {
+  display: block;
+  margin-top: 30px;
+  border-radius: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: bisque;
+}
