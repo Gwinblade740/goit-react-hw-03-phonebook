@@ -13,6 +13,21 @@ export default class App extends Component {
   state = {
     ...INITIAL_STATE,
   };
+  componentDidMount() {
+    try {
+      const contactsList = JSON.parse(localStorage.getItem('contacks'));
+      if (contactsList) {
+        this.setState({ contacts: contactsList });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacks', JSON.stringify(this.state.contacts));
+    }
+  }
   submitForm = ({ name, number }) => {
     if (this.findContackt(name).length) {
       Notiflix.Notify.failure(`${name} is already in contacts.`);
@@ -40,21 +55,7 @@ export default class App extends Component {
       contacts: prevState.contacts.filter(el => el.id !== contactId),
     }));
   };
-  componentDidMount() {
-    try {
-      const contactsList = localStorage.getItem('contacks');
-      if (contactsList) {
-        this.setState({ contacts: contactsList });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacks', JSON.stringify(this.state.contacts));
-    }
-  }
+
   render() {
     const filterContackt = this.findContackt(this.state.filter);
 
